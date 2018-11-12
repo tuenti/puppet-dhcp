@@ -22,7 +22,7 @@ define dhcp::pool (
   $dhcp_dir = $dhcp::params::dhcp_dir
 
   if $shared_network {
-    $content_target = "${dhcp_dir}/dhcpd.${name}.shared_networks"
+    $content_target = "${dhcp_dir}/dhcpd.${shared_network}.shared_network"
   } else {
     $content_target = "${dhcp_dir}/dhcpd.pools"
   }
