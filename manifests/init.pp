@@ -282,6 +282,14 @@ class dhcp (
     order   => '01',
   }
 
+  # dhcpd.classes
+  concat { "${dhcp_dir}/dhcpd.classes": }
+  concat::fragment { 'dhcp-classes-header':
+    target  => "${dhcp_dir}/dhcpd.classes",
+    content => "# DHCP custom classes\n",
+    order   => '01',
+  }
+
   # Create any DHCP classes requested
   create_resources('dhcp::dhcp_class', $dhcp_classes)
 
