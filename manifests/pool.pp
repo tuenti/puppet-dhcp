@@ -15,13 +15,20 @@ define dhcp::pool (
   Optional[Integer] $mtu                    = undef,
   String $domain_name                       = '',
   $ignore_unknown                           = undef,
+  $shared_network                           = undef,
 ) {
   include ::dhcp::params
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
+  if $shared_network {
+    $content_target = "${dhcp_dir}/dhcpd.${name}.shared_networks"
+  } else {
+    $content_target = "${dhcp_dir}/dhcpd.pools"
+  }
+
   concat::fragment { "dhcp_pool_${name}":
-    target  => "${dhcp_dir}/dhcpd.pools",
+    target  => $content_target,
     content => template('dhcp/dhcpd.pool.erb'),
   }
 }
