@@ -19,6 +19,13 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% elsif @range != '' -%>
     range <%= @range %>;
 <% end -%>
+<% if @pool_parameters and @pool_parameters.is_a? Array -%>
+<% @pool_parameters.each do |parameter| -%>
+    <%= parameter %>;
+<% end -%>
+<% elsif @pool_parameters != '' -%>
+    <%= @pool_parameters %>;
+<% end -%>
   }
 <% end -%>
 

@@ -26,7 +26,13 @@ subnet6 <%= @network %>/<%= @prefix %> {
 <% elsif @range_temp != '' -%>
     range6 <%= @range_temp %> temporary;
 <% end -%>
-
+<% if @pool_parameters and @pool_parameters.is_a? Array -%>
+<% @pool_parameters.each do |parameter| -%>
+    <%= parameter %>;
+<% end -%>
+<% elsif @pool_parameters != '' -%>
+    <%= @pool_parameters %>;
+<% end -%>
   }
 <% end -%>
 

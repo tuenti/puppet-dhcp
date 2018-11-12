@@ -11,6 +11,7 @@ define dhcp::pool6 (
   String $failover                          = '',
   String $options                           = '',
   String $parameters                        = '',
+  String $pool_parameters                   = '',
   Optional[Array[String]] $nameservers      = undef,
   Optional[Array[String]] $nameservers_ipv6 = undef,
   Optional[String] $pxeserver               = undef,
