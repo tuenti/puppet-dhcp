@@ -17,12 +17,12 @@ define dhcp::shared_network (
   }
   concat::fragment { "dhcp_shared_network_${name}_hosts":
     target  => "${dhcp_dir}/${dhcpd_conf_filename}",
-    content => "include \"${conf_file}\";",
+    content => "include \"${conf_file}\";\n",
     order   => '999',
   }
   concat::fragment { "dhcp_shared_network_${name}_tail":
     target  => $conf_file,
-    content => '}',
+    content => "}\n",
     order   => '99',
   }
 }
