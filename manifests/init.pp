@@ -158,7 +158,17 @@ class dhcp (
     require => Package[$packagename],
   }
 
+  file { "${dhcp_dir}/shared-networks":
+    ensure  => directory,
+    mode    => '0755',
+    require => File[$dhcp_dir],
+  }
 
+  file { "${dhcp_dir}/groups":
+    ensure  => directory,
+    mode    => '0755',
+    require => File[$dhcp_dir],
+  }
 
   case $facts['osfamily'] {
     'RedHat': {

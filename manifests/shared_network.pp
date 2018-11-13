@@ -8,17 +8,17 @@ define dhcp::shared_network (
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
-  $conf_file = "${dhcp_dir}/dhcpd.${name}.shared_network"
+  $conf_file = "${dhcp_dir}/shared-networks/dhcpd.${name}"
   concat{$conf_file: }
   concat::fragment { "dhcp_shared_network_${name}_header":
     target  => $conf_file,
-    content => template('dhcp/dhcpd.shared_network.header.erb'),
+    content => "shared-network ${name} {\n"
     order   => '01',
   }
   concat::fragment { "dhcp_shared_network_${name}_hosts":
     target  => "${dhcp_dir}/${dhcpd_conf_filename}",
     content => "include \"${conf_file}\";\n",
-    order   => '999',
+    order   => '99',
   }
   concat::fragment { "dhcp_shared_network_${name}_tail":
     target  => $conf_file,
