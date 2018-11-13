@@ -1,10 +1,10 @@
 # == Define: dhcp::group
 #
 define dhcp::group (
-  String              $dhcpd_conf_filename = 'dhcpd.conf',
-  Optional[String]    $shared_network      = undef,
-  Hash[String,String] $options             = {},
-  Array[String]       $parameters          = [],
+  String           $dhcpd_conf_filename = 'dhcpd.conf',
+  Optional[String] $shared_network      = undef,
+  Array[String]    $options             = [],
+  Array[String]    $parameters          = [],
 ){
 
   include ::dhcp::params
