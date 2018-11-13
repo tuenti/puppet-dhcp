@@ -15,7 +15,7 @@ define dhcp::shared_network (
     content => "shared-network ${name} {\n",
     order   => '01',
   }
-  concat::fragment { "dhcp_shared_network_${name}_hosts":
+  concat::fragment { "dhcp_shared_network_${name}_include":
     target  => "${dhcp_dir}/${dhcpd_conf_filename}",
     content => "include \"${conf_file}\";\n",
     order   => '99',

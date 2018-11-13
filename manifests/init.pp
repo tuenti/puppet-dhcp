@@ -58,6 +58,7 @@ class dhcp (
   Hash[String, Hash] $pools                               = {},
   Hash[String, Hash] $pools6                              = {},
   Hash[String, Hash] $shared_networks                     = {},
+  Hash[String, Hash] $groups                              = {},
   Optional[Stdlib::Absolutepath] $dhcpd_binary            = $dhcp::params::dhcpd_binary
 ) inherits dhcp::params {
 
@@ -318,6 +319,9 @@ class dhcp (
 
   # Setup any DHCP shared_networks requested
   create_resources('dhcp::shared_network', $shared_networks)
+
+  # Setup any DHCP groups requested
+  create_resources('dhcp::group', $groups)
 
   # check if this is really a bool
   if $use_ldap {
