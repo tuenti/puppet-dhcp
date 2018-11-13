@@ -12,7 +12,7 @@ define dhcp::shared_network (
   concat{$conf_file: }
   concat::fragment { "dhcp_shared_network_${name}_header":
     target  => $conf_file,
-    content => "shared-network ${name} {\n"
+    content => "shared-network ${name} {\n",
     order   => '01',
   }
   concat::fragment { "dhcp_shared_network_${name}_hosts":
