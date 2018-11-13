@@ -16,7 +16,7 @@ define dhcp::host (
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
-  if $shared_network {
+  if $group {
     $content_target = "${dhcp_dir}/groups/dhcpd.${group}"
   } else {
     $content_target = "${dhcp_dir}/dhcpd.hosts"
