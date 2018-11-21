@@ -1,5 +1,5 @@
 # BEGIN DHCP Failover
-failover peer "dhcp-failover" {
+failover peer "<%= @peer_name %>" {
         <%= @role %>;
         address <%= @address %>;
         port <%= @port %>;

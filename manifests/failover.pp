@@ -2,6 +2,7 @@
 #
 class dhcp::failover (
   $peer_address,
+  $peer_name            = 'dhcp-failover',
   $role                 = 'primary',
   $address              = $::ipaddress,
   $port                 = '519',
