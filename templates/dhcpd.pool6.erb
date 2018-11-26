@@ -2,7 +2,7 @@
 # <%= @name %> <%= @network %>/<%= @prefix %>
 #################################
 subnet6 <%= @network %>/<%= @prefix %> {
-<% if @range -%>
+<% if @range != '' -%>
   pool6
   {
 <% if @failover != '' -%>
