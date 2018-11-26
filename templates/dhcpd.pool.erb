@@ -2,7 +2,7 @@
 # <%= @name %> <%= @network %> <%= @mask %>
 #################################
 subnet <%= @network %> netmask <%= @mask %> {
-<% if @range != '' or @failover != '' -%>
+<% if @range or @failover != '' -%>
   pool
   {
 <% if @failover != '' -%>
