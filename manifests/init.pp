@@ -29,6 +29,7 @@ class dhcp (
   Integer $default_lease_time                             = 43200,
   Integer $max_lease_time                                 = 86400,
   $service_ensure                                         = running,
+  $service_enable                                         = true,
   $globaloptions                                          = '',
   Optional[Integer[0,65535]] $omapi_port                  = undef,
   Optional[String] $omapi_name                            = undef,
@@ -347,7 +348,7 @@ class dhcp (
   if $manage_service {
     service { $servicename:
       ensure    => $service_ensure,
-      enable    => true,
+      enable    => $service_enable,
       hasstatus => true,
       require   => Package[$packagename],
     }
