@@ -78,9 +78,25 @@ Create host reservations.
 May be passed as a hash into the DHCP class.
 ```puppet
 dhcp::host { 'server1':
-  comment => 'Optional descriptive comment',
-  mac     => '00:50:56:00:00:01',
-  ip      => '10.0.1.51',
+  comment            => 'Optional descriptive comment',
+  mac                => '00:50:56:00:00:01',
+  ip                 => '10.0.1.51',
+  # Optionally override subnet/global settings for some hosts.
+  default_lease_time => 600,
+  max_lease_time     => 900,
+  # Optionally declare event statements in any combination.
+  on_commit => [
+    'set ClientIP = binary-to-ascii(10, 8, ".", leased-address)',
+    'execute("/usr/local/bin/my_dhcp_helper.sh", ClientIP)'
+  ],
+  on_release => [
+    'set ClientIP = binary-to-ascii(10, 8, ".", leased-address)',
+    'log(concat("Released IP: ", ClientIP))'
+  ],
+  on_expiry => [
+    'set ClientIP = binary-to-ascii(10, 8, ".", leased-address)',
+    'log(concat("Expired IP: ", ClientIP))'
+  ]
 }
 ```
 
@@ -134,10 +150,10 @@ The following is the list of all parameters available for this class.
 | `ldap_server`          | String    | `'localhost'`                     |
 | `ldap_username`        | String    | `'cn=root, dc=example, dc=com'`   |
 | `logfacility`          | String    | `'daemon'`                        |
-| `manage_service`       | Boolean   | `true`                       |
+| `manage_service`       | Boolean   | `true`                            |
 | `max_lease_time`       | Integer   | `86400`                           |
 | `mtu`                  | Integer   | `undef`                           |
-| `nameservers`          | Array     | `[ '8.8.8.8', '8.8.4.4' ]`        |
+| `nameservers`          | Array     | `[]`                              |
 | `nameservers_ipv6`     | Array     | `[]`                              |
 | `ntpservers`           | Array     | `[]`                              |
 | `omapi_algorithm`      | String    | `HMAC-MD5`                        |
@@ -148,6 +164,7 @@ The following is the list of all parameters available for this class.
 | `option_code150_value` | String    | `text`                            |
 | `package_provider`     | String    | `$dhcp::params::package_provider` |
 | `packagename`          | String    | `$dhcp::params::packagename`      |
+| `manage_package`       | Boolean   | `true`                            |
 | `pxefilename`          | String    | `undef`                           |
 | `pxeserver`            | String    | `undef`                           |
 | `service_ensure`       | Enum      | `running`                         |
