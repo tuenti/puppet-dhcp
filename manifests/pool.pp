@@ -1,8 +1,8 @@
 # == Define: dhcp::pool
 #
 define dhcp::pool (
-  Stdlib::Compat::Ipv4 $network,
-  Stdlib::Compat::Ipv4 $mask,
+  Stdlib::IP::Address::V4 $network,
+  Stdlib::IP::Address::V4 $mask,
   $gateway                                  = '',
   $range                                    = '',
   $failover                                 = '',
@@ -15,7 +15,7 @@ define dhcp::pool (
   String $domain_name                       = '',
   $ignore_unknown                           = undef,
 ) {
-  include ::dhcp::params
+  include dhcp::params
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
